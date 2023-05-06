@@ -16,35 +16,32 @@ function handleSubmit() {
       .then(setMarkup)
       .catch(err => Notify.failure('Oops, there is no country with that name'));
   } else {
-    countryList.innerHTML = '';
-    countryCard.innerHTML = '';
+    clearList();
   }
 }
 
 function setMarkup(countries) {
   if (countries.length > 10) {
-    countryList.innerHTML = '';
-    countryCard.innerHTML = '';
+    clearList();
     Notify.info('Too many matches found. Please enter a more specific name.');
     return;
   }
-  countryList.innerHTML = '';
-  countryCard.innerHTML = '';
-  if (countries.length === 1) {
-    createMarkupCard(countries);
 
-    return;
-  }
-  countryList.insertAdjacentHTML('afterbegin', createMarkupList(countries));
+  clearList();
+
+  if (countries.length === 1) return createMarkupCard(countries);
+
+  createMarkupList(countries);
 }
 
 function createMarkupList(data) {
-  return data.reduce(
+  const markupList = data.reduce(
     (acc, { name, flags }) =>
       acc +
       `<li class="list-item"><img src="${flags.svg}" style="width:30px;height:30px;"><p>${name.official}</p></li>`,
     ''
   );
+  countryList.insertAdjacentHTML('afterbegin', markupList);
 }
 
 function createMarkupCard(data) {
@@ -57,6 +54,11 @@ function createMarkupCard(data) {
   }</h1></div><p>Capital: <span>${capital}</span></p><p>Population: <span>${population}</span></p><p>Languages: <span>${Object.values(
     languages
   ).join(', ')}</span></p>`;
+}
+
+function clearList() {
+  countryList.innerHTML = '';
+  countryCard.innerHTML = '';
 }
 
 input.addEventListener('input', debounce(handleSubmit, DEBOUNCE_DELAY));
