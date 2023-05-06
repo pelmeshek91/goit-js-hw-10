@@ -10,7 +10,7 @@ const countryList = document.querySelector('.country-list');
 const countryCard = document.querySelector('.country-info');
 
 function handleSubmit() {
-  const query = input.value;
+  const query = input.value.trim();
   if (query) {
     fetchCountries(query)
       .then(setMarkup)
