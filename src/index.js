@@ -17,22 +17,22 @@ function handleSubmit() {
       .catch(err => Notify.failure('Oops, there is no country with that name'));
   } else {
     countryList.innerHTML = '';
+    countryCard.innerHTML = '';
   }
 }
 
 function setMarkup(countries) {
   if (countries.length > 10) {
+    countryList.innerHTML = '';
+    countryCard.innerHTML = '';
     Notify.info('Too many matches found. Please enter a more specific name.');
     return;
   }
-
   countryList.innerHTML = '';
   countryCard.innerHTML = '';
-
   if (countries.length === 1) {
-    console.log(countries);
-    const countryInfo = createMarkupCard(countries);
-    countryCard.innerHTML = countryInfo;
+    createMarkupCard(countries);
+
     return;
   }
   countryList.insertAdjacentHTML('afterbegin', createMarkupList(countries));
@@ -49,13 +49,14 @@ function createMarkupList(data) {
 
 function createMarkupCard(data) {
   const { flags, name, capital, population, languages } = data[0];
-  return `<div class="wrap"><img src="${
+
+  countryCard.innerHTML = `<div class="wrap"><img src="${
     flags.svg
   }" style="width:40px;height:40px;"><h1>${
     name.official
-  }</h1></div><p>Capital: <span>${capital}</span></p><p>Population: <span>${population}</span></p><p>Languages: <span>${languages
-    .map(language => language.name)
-    .join(', ')}</span></p>`;
+  }</h1></div><p>Capital: <span>${capital}</span></p><p>Population: <span>${population}</span></p><p>Languages: <span>${Object.values(
+    languages
+  ).join(', ')}</span></p>`;
 }
 
 input.addEventListener('input', debounce(handleSubmit, DEBOUNCE_DELAY));

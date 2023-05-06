@@ -12,9 +12,54 @@ body {
   line-height: 1.5;
 }
 
+p,
+h1,
+h2,
+h3,
+h4 {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
 #search-box {
   font: inherit;
   padding: 8px;
   max-width: 320px;
   margin-bottom: 16px;
+}
+
+.country-list {
+  padding: 0;
+}
+
+li>p {
+  font-weight: 400;
+}
+
+p {
+  margin: 5px;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+span {
+  font-size: 20px;
+  font-weight: 400;
+}
+
+.wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+
+}
+
+.list-item {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
