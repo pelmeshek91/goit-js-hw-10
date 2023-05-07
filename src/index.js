@@ -10,24 +10,20 @@ const countryList = document.querySelector('.country-list');
 const countryCard = document.querySelector('.country-info');
 
 function handleSubmit() {
+  clearList();
   const query = input.value.trim();
   if (query) {
     fetchCountries(query)
       .then(setMarkup)
       .catch(err => Notify.failure('Oops, there is no country with that name'));
-  } else {
-    clearList();
   }
 }
 
 function setMarkup(countries) {
   if (countries.length > 10) {
-    clearList();
     Notify.info('Too many matches found. Please enter a more specific name.');
     return;
   }
-
-  clearList();
 
   if (countries.length === 1) return createMarkupCard(countries);
 

@@ -4,12 +4,10 @@ export function fetchCountries(name) {
   const filterParams = '?fields=name,capital,population,flags,languages';
 
   const url = `${BASE_URL}${END_POINT}/${name}${filterParams}`;
-  return fetch(url)
-    .then(res => {
-      if (!res.ok) {
-        throw new Error('Enter invalid country');
-      }
-      return res.json();
-    })
-    .catch(console.log);
+  return fetch(url).then(res => {
+    if (!res.ok) {
+      throw new Error('Enter invalid country');
+    }
+    return res.json();
+  });
 }
